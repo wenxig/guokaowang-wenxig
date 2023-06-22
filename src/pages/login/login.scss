@@ -1,0 +1,36 @@
+input {
+  @mixin size {
+    width: 300px;
+    height: 40px;
+    position: fixed;
+  }
+  &[type="text"] {
+    @extend .inp;
+    @include size;
+    bottom: 70px;
+  }
+
+  &[type="button"] {
+    @extend .btn;
+    @include size;
+    bottom: 20px;
+  }
+}
+:global(html) {
+  height: 100vh;
+  background: {
+    repeat: no-repeat;
+    color: $yanfei-pink;
+    position: center;
+    size: 100%;
+    image: url(/login.jpeg);
+  }
+}
+#img{
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: revert;
+}
