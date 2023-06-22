@@ -3,7 +3,7 @@ import listBox from "@/components/listbox.vue";
 import listItem from "@/components/liItem.vue";
 import alertBox from "@/components/alertbox.vue";
 import { onBeforeRouteLeave } from "vue-router";
-import { ref, computed, watch, onMounted, reactive } from "vue";
+import { ref, computed, watch, onMounted,onBeforeMount } from "vue";
 import choosePaper from "*/public/json/choose.json";
 import { useUserTemp } from "@/store/userTemp.js";
 const userTemp = useUserTemp();
@@ -11,7 +11,8 @@ let show = ref(false);
 let onPage = ref(0);
 let setPage = ref(5);
 let allPage = ref(0);
-let showList = ref(choosePaper);
+let showList = ref(undefined);
+showList.value=choosePaper;
 let onLeft = ref(false);
 let menu = {
   leixing_all: ["所有", "普通", '"我都不会"'],
@@ -26,16 +27,20 @@ onBeforeRouteLeave(() => {
   show.value = true; // 等待中提示
 });
 
+onBeforeMount(()=>{
+  _.each(userTemp.all,function(v,i){
+    choosePaper[i].times=v.times
+    choosePaper[i].mean=_.isNaN(_.meanBy(v.all))?0:_.meanBy(v.all);
+    choosePaper[i].max=_.max(v.all)??0
+    choosePaper[i].ok=!(_.max(v.all)??0)==choosePaper[i].fullcount
+  })
+})
+
 onMounted(() => {
   changeShowList();
 });
 
-function meanCount(index){
-
-}
-
 function chooseSel(text) {
-  console.log("chooseSel");
   if (onLeft.value) {
     kemu.value = text;
   } else {
@@ -43,10 +48,6 @@ function chooseSel(text) {
   }
   closeSel();
 }
-function myindex(index) {
-  return onPage.value * setPage.value + index;
-}
-
 function closeSel() {
   m_show.value = false;
 }
@@ -71,12 +72,10 @@ function showSel(ev) {
 
 function changeShowList() {
   onPage.value = 0;
-  console.log("changeShowList");
   changeShowPage();
 }
 
 function changeShowPage() {
-  console.log("CHANGESHOWPAGE");
   showList.value = _.filter(choosePaper, function (o) {
     return kemu.value == "所有" || o.type == kemu.value;
   });
@@ -104,18 +103,13 @@ const lastdo = computed(() => {
 });
 
 watch(setPage, () => {
-  console.log("setPage_watch");
   changeShowList();
 });
 
 watch(onPage, () => {
-  console.log("onPage_watch");
   changeShowPage();
 });
 
-watch(showList,()=>{
-  console.log("SHOWLIST_WATCH");
-})
 
 watch(m_show, (d) => {
   if (d) {
@@ -132,12 +126,10 @@ watch(m_show, (d) => {
 });
 
 watch(kemu, () => {
-  console.log("kemu_watch");
   changeShowList();
 });
 
 watch(leixing, () => {
-  console.log("leixing_watch");
   changeShowList();
 });
 </script>
@@ -158,14 +150,12 @@ watch(leixing, () => {
           class="memuClick"
           type="number"
           v-model="setPage"
-          max="15"
-          min="1"
         />
       </div>
       <div
         class="memu"
         :class="{ onleft: onLeft, show: m_show }"
-        :style="{ '--i-height': m_listheight.value }"
+        :style="{ '--i-height': m_listheight}"
       >
         <div class="pop" v-if="m_show" @click="closeSel()"></div>
         <div
@@ -185,24 +175,17 @@ watch(leixing, () => {
     </div>
     <listBox>
       <TransitionGroup name="list" tag="ul">
-        <!-- <listItem
-          v-for="(item, index) in showList"
+        <listItem
+          v-for="(item) in showList"
           :key="item.id"
-          
-        ></listItem> -->
-        <!-- 
-          
-          
-          :highest="userDataT[onPage * setPage + index].max??0"
-          :nom="userDataT[onPage * setPage + index].mean??0"
-          :isok="userDataT[onPage * setPage + index].ok"
           :exemid="item.id"
           :name="item.name"
+          :times="item.times"
+          :highest="item.max"
+          :nom="item.mean"
+          :isok="item.ok"
           :max="item.fullcount"
-          @click="aalert(index)"
-          :times="userTemp.get(myindex(1)).times"
-          :idb="userDataT[onPage * setPage + index]"
-         -->
+        ></listItem>
       </TransitionGroup>
       <li class="pageChunk" v-if="allPage > 1">
         <div class="sanjiao" @click="onPage > 0 ? onPage-- : onPage"></div>

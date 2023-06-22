@@ -7,10 +7,16 @@ const pinia = createPinia();
 const app = createApp(App);
 window.localForage = localForage
 app.use(router);
+pinia.use(({ store }) => {
+  const initialState = JSON.parse(JSON.stringify(store.$state));
+  store.$reset = () => {
+    store.$state = JSON.parse(JSON.stringify(initialState));
+  }
+});
 app.use(pinia);
 app.mount("#app");
 
-document.addEventListener('mousewheel', function(e) { //禁用页面缩放
+document.addEventListener('mousewheel', function (e) { //禁用页面缩放
   e = e || window.event;
   if ((e.wheelDelta && event.ctrlKey) || e.detail) {
     event.preventDefault();
@@ -19,7 +25,7 @@ document.addEventListener('mousewheel', function(e) { //禁用页面缩放
   capture: false,
   passive: false
 });
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
   if ((event.ctrlKey === true || event.metaKey === true) &&
     (event.keyCode === 61 || event.keyCode === 107 ||
       event.keyCode === 173 || event.keyCode === 109 ||

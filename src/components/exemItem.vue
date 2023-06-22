@@ -1,8 +1,6 @@
 <script setup>
-import { storeToRefs } from "pinia";
-import { useSelStore } from "@/store/seldata.js";
 import { ref } from "vue";
-const store = storeToRefs(useSelStore());
+const store = JSON.parse(sessionStorage.getItem("sel"))
 const props = defineProps({
   item: Array | Object,
   answer: Boolean,
@@ -28,10 +26,16 @@ if(store.sel[myPos]){
   choose.value.now = store.sel[myPos];
 }
 function selItem(sel) {
+  let nowdata=JSON.parse(sessionStorage.getItem("sel"))
+  nowdata.sel[myPos] = sel;
   store.sel[myPos] = sel;
+  sessionStorage.setItem("sel",JSON.stringify({
+    sel:nowdata.sel
+  }))
   choose.value[choose.value.now] = "";
   choose.value.now = sel;
   choose.value[sel] = "choose";
+  console.log(sessionStorage.getItem("sel"));
 }
 </script>
 

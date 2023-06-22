@@ -90,7 +90,7 @@
       padding-left: 5%;
     }
     .memu {
-      transition: height 400ms, border 300ms;
+      transition: height 400ms, border 300ms !important;
       position: absolute;
       top: $topbarMargin + $selHeight;
       width: 240px;
@@ -98,6 +98,10 @@
       left: calc(4% + 240px);
       overflow: hidden;
       z-index: 2;
+      border-bottom: {
+        left-radius: 3px;
+        right-radius: 3px;
+      }
       & > .pop {
         position: fixed;
         top: 0%;
@@ -115,7 +119,6 @@
         @include heightCenter;
         z-index: 100;
         position: relative;
-        backdrop-filter: blur(5px);
         background-color: gray-rgba(0.2);
         &:hover {
           background-color: gray-rgba(0.8) !important;
@@ -124,10 +127,6 @@
       &.onleft {
         left: 2%;
       }
-      border-bottom: {
-          left-radius: 3px;
-          right-radius: 3px;
-        }
       &.show {
         height: var(--i-height);
         border-bottom: {
@@ -142,6 +141,10 @@
     height: auto;
     -webkit-appearance: none;
   }
+}
+
+ul{
+  padding: 0%;
 }
 
 $transName: ".list";
