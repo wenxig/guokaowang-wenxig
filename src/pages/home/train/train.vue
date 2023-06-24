@@ -3,7 +3,7 @@ import listBox from "@/components/listbox.vue";
 import listItem from "@/components/liItem.vue";
 import alertBox from "@/components/alertbox.vue";
 import { onBeforeRouteLeave } from "vue-router";
-import { ref, computed, watch, onMounted,onBeforeMount } from "vue";
+import { ref, computed, watch, onMounted, reactive } from "vue";
 import choosePaper from "*/public/json/choose.json";
 import { useUserTemp } from "@/store/userTemp.js";
 const userTemp = useUserTemp();
@@ -11,15 +11,16 @@ let show = ref(false);
 let onPage = ref(0);
 let setPage = ref(5);
 let allPage = ref(0);
-let showList = ref(undefined);
-showList.value=choosePaper;
+const choosePapers=reactive(choosePaper)
+let showList = ref([]);
+showList.value = choosePapers;
 let onLeft = ref(false);
 let menu = {
   leixing_all: ["所有", "普通", '"我都不会"'],
-  kemu_all: ["所有", "单项选择题", "上机选择题"]
-}
-let m_listheight=ref("0px")
-let m_show=ref(false)
+  kemu_all: ["所有", "单项选择题", "上机选择题"],
+};
+let m_listheight = ref("0px");
+let m_show = ref(false);
 
 let kemu = ref("所有");
 let leixing = ref("所有");
@@ -27,13 +28,15 @@ onBeforeRouteLeave(() => {
   show.value = true; // 等待中提示
 });
 
-onBeforeMount(()=>{
-  _.each(userTemp.all,function(v,i){
-    choosePaper[i].times=v.times
-    choosePaper[i].mean=_.isNaN(_.meanBy(v.all))?0:_.meanBy(v.all);
-    choosePaper[i].max=_.max(v.all)??0
-    choosePaper[i].ok=!(_.max(v.all)??0)==choosePaper[i].fullcount
-  })
+userTemp.alldata((d)=>{
+  _.each(d, function (v, i) {
+  choosePapers[i].times = v.times;
+  choosePapers[i].mean = _.isNaN(_.meanBy(v.all))
+    ? 0
+    : _.floor(_.meanBy(v.all), 1);
+  choosePapers[i].max = _.max(v.all) ?? 0;
+  choosePapers[i].ok = !(_.max(v.all) ?? 0) == choosePapers[i].fullcount;
+});
 })
 
 onMounted(() => {
@@ -110,7 +113,6 @@ watch(onPage, () => {
   changeShowPage();
 });
 
-
 watch(m_show, (d) => {
   if (d) {
     $("header").css("z-index", "1");
@@ -146,16 +148,12 @@ watch(leixing, () => {
           类型：{{ leixing }}
           <span></span>
         </div>
-        <input
-          class="memuClick"
-          type="number"
-          v-model="setPage"
-        />
+        <input class="memuClick" type="number" v-model="setPage" />
       </div>
       <div
         class="memu"
         :class="{ onleft: onLeft, show: m_show }"
-        :style="{ '--i-height': m_listheight}"
+        :style="{ '--i-height': m_listheight }"
       >
         <div class="pop" v-if="m_show" @click="closeSel()"></div>
         <div
@@ -176,7 +174,7 @@ watch(leixing, () => {
     <listBox>
       <TransitionGroup name="list" tag="ul">
         <listItem
-          v-for="(item) in showList"
+          v-for="item in showList"
           :key="item.id"
           :exemid="item.id"
           :name="item.name"

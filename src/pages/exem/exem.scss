@@ -2,6 +2,8 @@
   width: 100vw;
   height: 100vh;
   .about {
+    margin-top: 3%;
+    margin-left: 10%;
     position: relative;
     width: 45vw;
     height: 35vw;
@@ -64,7 +66,61 @@
       background-color: $yanfei-pink;
     }
   }
-
+  .leftbar{
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+  }
+  .over {
+    margin-top: 70px;
+    margin-left: 15vw;
+    width: 85vw;
+    height: calc(100vh - 70px);
+    @include widthCenter;
+    flex-shrink: 0;
+    background-color: white-rgba(0.9);
+    .head{
+      position: absolute;
+      top: 12%;
+      @include center;
+      width: 80%;
+      height: 60px;
+      background-color: mix(gray-rgba(0.6), white-rgba(0.8));
+    }
+    & table{
+      margin-top: 10%;
+      height: 60px;
+      width: 80%;
+      & tr:first-child{
+        background-color: mix(gray-rgba(0.6), white-rgba(0.7));
+      }
+      & th{
+        width: 7vw;
+        height: 30px;
+      }
+    }
+    div{
+      position: absolute;
+      top: calc(30% + 60px );
+      @include center;
+      width: 30vw;
+      &>*{
+        transition: background 300ms;
+        display: block;
+        background-color: $yanfei-pink;
+        width: 15vw;
+        height: 30px;
+        border-radius: 4px;
+        @include center;
+        &:hover{
+          background-color: mix($yanfei-pink, white-rgba(0.7));
+        }
+        &:last-child{
+          margin-left: 10px;
+        }
+      }
+    }
+  }
 }
 
 .btn-goto {
@@ -94,12 +150,6 @@
   @include center;
 }
 
-.over {
-  width: 50vw;
-  height: 70vh;
-  background-color: white-rgba(1);
-  border-radius: 6px;
-}
 .pageChunk {
   @include heightCenter;
   .sanjiao {

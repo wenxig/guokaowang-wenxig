@@ -9,8 +9,8 @@ try {
 </script>
 <template>
   <div>
-    <headbar></headbar>
-    <leftBar>
+    <headbar :adminder="true"></headbar>
+    <leftBar :adminder="true">
       <routerBarButton text="首页" to="/home/home" />
       <routerBarButton text="单元练习" to="/home/train" />
       <routerBarButton text="我的考试" to="/home/exem" />

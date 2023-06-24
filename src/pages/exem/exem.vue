@@ -8,6 +8,8 @@ import all from "*/public/json/choose.json";
 import exemItem from "@/components/exemItem.vue";
 import headbar from "@/components/headbar.vue";
 import { useUserTemp } from "@/store/userTemp.js";
+import leftBar from "@/components/leftBar.vue";
+import routerBarButton from "@/components/routerBarButton.vue";
 const userTemp = useUserTemp();
 const store = storeToRefs(useSelStore());
 const route = useRoute();
@@ -25,6 +27,7 @@ let setPage = ref(15);
 let allPage = ref(0);
 let submit_v = true;
 let showList = ref(showlist);
+let yida = ref(0)
 
 watch(
   onPage,
@@ -36,8 +39,8 @@ watch(
   { immediate: true }
 );
 function showAlert(msg) {
-  title = "答案是";
-  text = msg;
+  title.value = "答案是";
+  text.value = msg;
   if (!show.value) {
     show.value = true;
     setTimeout(() => {
@@ -68,19 +71,24 @@ function submit() {
       show.value = false;
     }, 800);
   } else {
-    start.value = 2;
+    title.value = "开始评分";
+    text.value = "请等待";
+    show.value = true;
     mathToGrade();
     // 提交
   }
 }
 function mathToGrade() {
+  let selObj=JSON.parse(sessionStorage.getItem("sel"))
   store.trueList = [];
-  _.each(store.sel, function (v, i) {
+  let trueList=[]
+  _.each(selObj.sel, function (v, i) {
     i = _.toNumber(i);
     if (i || i == 0) {
       let isRight = showlist.topic[i].true == v;
-      store.trueList[i] = isRight;
+      trueList[i]=isRight
       if (isRight) grade.value = grade.value + 2;
+      if(!_.isNull(v)) yida.value++
     }
   });
   let thisLib=userTemp.get(route.params.id);
@@ -93,21 +101,30 @@ function mathToGrade() {
     times:thisLib.times
   }
   thisobj=JSON.parse(JSON.stringify(thisobj))
-  console.log(thisobj);
-  userTemp.set(thisobj,route.params.id)
+  title.value = "开始评分";
+    text.value = "将分数上传到数据库";
+  userTemp.set(thisobj,route.params.id,function(){
+    start.value = 2;
+  })
 }
 </script>
 
 <template>
   <div class="main" :class="{ center: start != 1 }">
-    <headbar style="position: fixed; top: 0%">
+    <headbar style="position: fixed; top: 0%"  :adminder="false">
       <template v-if="start == 1">
-        <button class="btn-topbar" @click="submit">提交</button>
+        <button class="btn-topbar" @click="submit()">提交</button>
         <button @click="router.push('/home/train')" class="btn-topbar">
           退出
         </button>
       </template>
     </headbar>
+    <leftBar class="leftbar" v-if="start == 0||start == 2"  :adminder="false">
+      <routerBarButton text="首页" to="/home/home" />
+      <routerBarButton text="单元练习" to="/home/train" />
+      <routerBarButton text="我的考试" to="/home/exem" />
+      <routerBarButton text="学习档案" to="/home/history" />
+    </leftBar>
     <div v-if="start == 0" class="about">
       <table cellspacing="0">
         <tr>
@@ -150,15 +167,27 @@ function mathToGrade() {
       </div>
     </div>
     <div class="over" v-else-if="start == 2">
+      <div class="head">本次答题情况</div>
       <table cellspacing="0">
         <tr>
-          <th>成绩:</th>
-          <th>{{ grade }} / {{ showlist.fullcount }}</th>
+          <th>试题总数</th>
+          <th>未答题数</th>
+          <th>已答题数</th>
+          <th>满分</th>
+          <th>得分</th>
         </tr>
         <tr>
-          <th><router-link to="/home/train">back</router-link></th>
+          <th>{{ showlist.topic.length }}</th>
+          <th>{{ showlist.topic.length - yida}}</th>
+          <th>{{ yida }}</th>
+          <th>{{ showlist.fullcount }}</th>
+          <th>{{ grade }}</th>
         </tr>
       </table>
+      <div>
+        <router-link to="/home/train">返回列表</router-link>
+        <router-link to="/exemAbout">查看详细评分信息</router-link>
+      </div>
     </div>
     <Teleport to="body">
       <alertBox :show="show" :text="text" :title="title" />

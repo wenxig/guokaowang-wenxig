@@ -35,7 +35,6 @@ function selItem(sel) {
   choose.value[choose.value.now] = "";
   choose.value.now = sel;
   choose.value[sel] = "choose";
-  console.log(sessionStorage.getItem("sel"));
 }
 </script>
 

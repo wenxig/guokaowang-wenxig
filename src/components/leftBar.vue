@@ -1,9 +1,11 @@
 <script setup>
-
+const props=defineProps({
+  adminder:Boolean
+})
 </script>
 
 <template>
-<div class="leftbar">
+<div class="leftbar" :class="{ad:adminder}">
     <ul>
       <slot></slot>
     </ul>
@@ -11,12 +13,17 @@
 </template>
 
 <style scoped lang="scss">
+.ad{
+  animation: inputAd-top 400ms;
+  animation-fill-mode : forwards;
+}
+.leftbar:not(.ad){
+  opacity: 1;
+}
 .leftbar{
   background-color: white-rgba(0.8);
   position: relative;
   width: 15vw;
-  animation: inputAd-top 400ms;
-  animation-fill-mode : forwards;
   overflow: auto;
   height: calc(100vh - 70px);
 }

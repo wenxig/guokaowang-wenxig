@@ -1,10 +1,12 @@
 <script setup>
-const loginName = sessionStorage.login;
-
+const loginName = sessionStorage.login_name;
+const props = defineProps({
+  adminder: Boolean,
+});
 </script>
 
 <template>
-<header>
+  <header :class="{ ad: adminder }">
     <h2><span>信果考网</span>信息技术课教学云平台</h2>
     <div class="user-info">
       <p class="user-name">用户名:{{ loginName }}</p>
@@ -20,8 +22,6 @@ header {
   height: $barheight;
   width: 100vw;
   background-color: rgba($color: #d9d9d9, $alpha: 0.8);
-  animation: inputAd-top 300ms;
-  animation-fill-mode: forwards;
   z-index: 2;
 
   h2 {
@@ -57,5 +57,12 @@ header {
   100% {
     opacity: 1;
   }
+}
+.ad{
+  animation: inputAd-top 300ms;
+  animation-fill-mode : forwards;
+}
+header:not(.ad){
+  opacity: 1;
 }
 </style>
