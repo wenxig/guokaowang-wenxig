@@ -1,5 +1,6 @@
 <script setup>
 const loginName = sessionStorage.login_name;
+const stuno = sessionStorage.login_stuno
 const props = defineProps({
   adminder: Boolean,
 });
@@ -9,7 +10,7 @@ const props = defineProps({
   <header :class="{ ad: adminder }">
     <h2><span>信果考网</span>信息技术课教学云平台</h2>
     <div class="user-info">
-      <p class="user-name">用户名:{{ loginName }}</p>
+      <p class="user-name">姓名:{{ loginName }}&nbsp&nbsp学号:{{ stuno }}</p>
       <slot></slot>
     </div>
   </header>

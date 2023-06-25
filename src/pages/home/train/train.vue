@@ -9,9 +9,9 @@ import { useUserTemp } from "@/store/userTemp.js";
 const userTemp = useUserTemp();
 let show = ref(false);
 let onPage = ref(0);
-let setPage = ref(5);
+let setPage = ref(10);
 let allPage = ref(0);
-const choosePapers=reactive(choosePaper)
+const choosePapers = reactive(choosePaper);
 let showList = ref([]);
 showList.value = choosePapers;
 let onLeft = ref(false);
@@ -28,16 +28,15 @@ onBeforeRouteLeave(() => {
   show.value = true; // 等待中提示
 });
 
-userTemp.alldata((d)=>{
-  _.each(d, function (v, i) {
+_.each(userTemp.all, function (v, i) {
   choosePapers[i].times = v.times;
   choosePapers[i].mean = _.isNaN(_.meanBy(v.all))
     ? 0
     : _.floor(_.meanBy(v.all), 1);
-  choosePapers[i].max = _.max(v.all) ?? 0;
+  if (!v.height) choosePapers[i].max = _.max(v.all) ?? 0;
+  else choosePapers[i].max = v.height;
   choosePapers[i].ok = !(_.max(v.all) ?? 0) == choosePapers[i].fullcount;
 });
-})
 
 onMounted(() => {
   changeShowList();
