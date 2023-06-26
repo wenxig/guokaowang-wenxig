@@ -4,7 +4,7 @@ import listItem from "@/components/liItem.vue";
 import alertBox from "@/components/alertbox.vue";
 import { onBeforeRouteLeave } from "vue-router";
 import { ref, computed, watch, onMounted, reactive } from "vue";
-import choosePaper from "*/public/json/choose.json";
+import choosePaper from "@/assets/json/choose.json";
 import { useUserTemp } from "@/store/userTemp.js";
 const userTemp = useUserTemp();
 let show = ref(false);

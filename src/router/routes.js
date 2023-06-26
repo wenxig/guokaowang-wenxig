@@ -8,7 +8,7 @@ const routes = [
   {
     path: "/home",
     component: () => import("@/pages/home/home.vue"),
-    meta: { title: "信果考网实训考试云平台" },
+    meta: { title: "果考网实训考试云平台-wenxig端" },
     children: [
       {
         path: "home",

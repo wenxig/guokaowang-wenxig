@@ -1,4 +1,4 @@
-import allChooses from "*/public/json/choose.json";
+import allChooses from "@/assets/json/choose.json";
 
 function toXmlDom(source) {
   var xmlDoc = null;

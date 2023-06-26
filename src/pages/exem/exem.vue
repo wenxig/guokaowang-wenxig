@@ -4,7 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useSelStore } from "@/store/seldata.js";
-import all from "*/public/json/choose.json";
+import all from "@/assets/json/choose.json";
 import exemItem from "@/components/exemItem.vue";
 import headbar from "@/components/headbar.vue";
 import { useUserTemp } from "@/store/userTemp.js";
