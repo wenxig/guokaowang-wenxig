@@ -29,7 +29,7 @@ export default defineConfig({
     /* CSS 预处理器 */
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "@/assets/style/mixin.scss";'
+        additionalData: '@import "@/assets/style/global.scss";'
       }
     },
     postcss: { // ⚠️关键代码
