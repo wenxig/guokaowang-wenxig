@@ -5,7 +5,7 @@ import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useSelStore } from "@/store/seldata.js";
 import all from "@/assets/json/choose.json";
-import exemItem from "@/components/exemItem.vue";
+import exemItem from "./exemItem.vue";
 import headbar from "@/components/headbar.vue";
 import { useUserTemp } from "@/store/userTemp.js";
 import leftBar from "@/components/leftBar.vue";
@@ -102,9 +102,10 @@ function mathToGrade() {
   }
   thisobj=JSON.parse(JSON.stringify(thisobj))
   title.value = "开始评分";
-    text.value = "将分数上传到数据库";
+  text.value = "将分数上传到数据库";
   userTemp.set(thisobj,route.params.id,function(){
     start.value = 2;
+    show.value=false
   })
 }
 </script>

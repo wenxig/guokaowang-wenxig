@@ -1,5 +1,67 @@
-.main{
+.main {
   width: 100vw;
   height: 100vh;
   background-color: white-rgba(0.8);
+  overflow: auto;
+  & .btn-topbar {
+    height: 46px;
+    transition: background 100ms ease-out, color 100ms ease-out;
+    width: 75px;
+    padding: 0px 5px;
+    font-size: 20px;
+    margin-left: 10px;
+    border-radius: 6px;
+    background: transparent;
+    @include center;
+    right: 20px;
+    border: {
+      style: solid;
+      width: 2px;
+      color: $yanfei-pink;
+    }
+    &:active {
+      color: white-rgba(0.8);
+      background-color: $yanfei-pink;
+    }
+  }
+  & > .test {
+    width: 100vw;
+    margin: 0%;
+    padding: 0%;
+    margin-top: 70px;
+    padding-left: 30px;
+    & > li {
+      width: calc(100% - 30px);
+      height: 80px;
+      >p{
+        font-size: 16px
+      }
+      >.selbox{
+        display: flex;
+        width: 100%;
+
+      }
+    }
+  }
+}
+
+.pageChunk {
+  @include heightCenter;
+  .sanjiao {
+    transition: background 300ms;
+    $size: 15px;
+    clip-path: polygon(0 0, 0% 100%, 100% 50%);
+    background-color: gray-rgba(0.8);
+    width: $size;
+    height: $size;
+    margin: 0 10px;
+    &:first-child {
+      transform: rotate(180deg);
+    }
+  }
+  margin: {
+    bottom: 30px;
+    left: 30px;
+    top: 10px;
+  }
 }

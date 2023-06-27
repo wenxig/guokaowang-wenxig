@@ -1,6 +1,6 @@
 <script setup>
-import listBox from "@/components/listbox.vue";
-import listItem from "@/components/liItem.vue";
+import listBox from "./listItem/listbox.vue";
+import listItem from "./listItem/liItem.vue";
 import alertBox from "@/components/alertbox.vue";
 import { onBeforeRouteLeave } from "vue-router";
 import { ref, computed, watch, onMounted, reactive } from "vue";
