@@ -186,7 +186,7 @@ function mathToGrade() {
       </table>
       <div>
         <router-link to="/home/train">返回列表</router-link>
-        <router-link to="/exemAbout">查看详细评分信息</router-link>
+        <router-link to="/exem/about">查看详细评分信息</router-link>
       </div>
     </div>
     <Teleport to="body">

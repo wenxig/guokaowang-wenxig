@@ -31,29 +31,35 @@ const props = defineProps({
   border-radius: 10px;
   z-index: 200;
   transition: 500ms background, 500ms right;
+
   [name="title"] {
     font: {
       size: 20px;
       weight: 700;
     }
+
     margin: 10px;
   }
+
   [name="text"] {
     font: {
       size: 15px;
       weight: 500;
     }
+
     margin: 10px;
     margin-top: 0px;
   }
+
   p {
     margin: 0%;
   }
+
   &:hover {
     background-color: rgba(229, 229, 229, 1);
   }
+
   &.show {
-  right: 10px !important;
-}
-}
-</style>
+    right: 10px !important;
+  }
+}</style>

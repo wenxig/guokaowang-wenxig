@@ -1,6 +1,6 @@
 <script setup>
 import alertbox from "@/components/alertbox.vue";
-import { ref, reactive, onMounted,inject } from "vue";
+import { ref, reactive, onMounted,inject,watch } from "vue";
 import { useUserTemp } from "@/store/userTemp.js";
 import post from "@/service/axios.js";
 import { useRouter } from "vue-router";
@@ -11,6 +11,7 @@ if (localStorage.server==undefined) {
 }
 const router = useRouter();
 const userTemp = useUserTemp();
+let showPop=ref(false)
 let name = ref("");
 let password = ref("");
 let alertData = reactive({
@@ -18,14 +19,28 @@ let alertData = reactive({
   text: "",
   title: "",
 });
-const isthis=(t)=>{
-  if (t.host==localStorage.server) {
+let chilun_size = ref("20vh");
+let reload=inject('reload')
+let showMeun=ref(false)
+watch(showPop,(data)=>{
+  if (data) {
+    setTimeout(()=>{
+      showMeun.value=true
+    },10)
+  }
+})
+function closePop(){
+  showMeun.value = false
+  setTimeout(() => {
+    showPop.value = false
+  }, 300)
+}
+function isthis(t) {
+  if (t.host == localStorage.server) {
     return "isthis"
   }
   return ""
 }
-let chilun_size = ref("20vh");
-let reload=inject('reload')
 function selServer(selObj){
   if (selObj.type=='tiny') {
     localStorage.server=selObj.host;
@@ -41,6 +56,7 @@ function selServer(selObj){
 }
 
 function login() {
+  router.push("/exem/about")
   if (name.value != "") {
     alertData.show = true;
     alertData.text = "数据库初始化";
@@ -127,12 +143,14 @@ onMounted(() => {
       />
     </Teleport>
     <a id="img" href="https://www.pixiv.net/artworks/99327195">画师: フィラ</a>
-    <div class="memu">
-      <chilunSvg class="chilun" :size="chilun_size" />
+    <div class="memu" @click="showPop = true">
+      <chilunSvg class="chilun" :size="chilun_size" :class="{r: showMeun }"/>
       <Teleport to="body">
-        <div class="rightbar">
-          <div class="title">服务器选择</div>
-          <div v-for="server in serverList" :class="isthis(server)" @click="selServer(server)">{{ server.name }}</div>
+        <div class="pop" @click.self="closePop()" :class="{ showPop }">
+          <div class="rightbar" :class="{showMeun}">
+            <div class="title">服务器选择</div>
+            <div v-for="server in serverList" :class="isthis(server)" @click.stop="selServer(server)">{{ server.name }}</div>
+          </div>
         </div>
       </Teleport>
     </div>

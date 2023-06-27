@@ -26,6 +26,6 @@
     "vite": "^4.3.9"
   },
   "window": {
-    "icon": "./title.jpg"
+    "icon": "./dist/title.jpg"
   }
 }

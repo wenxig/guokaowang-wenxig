@@ -15,4 +15,8 @@ router.push("/");
   <router-view v-if="isRouterAlive"></router-view>
 </template>
 
-<style scoped></style>
+<style>
+body{
+  margin: 0px;
+}
+</style>

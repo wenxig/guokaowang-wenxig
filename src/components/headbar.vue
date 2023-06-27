@@ -8,7 +8,7 @@ const props = defineProps({
 
 <template>
   <header :class="{ ad: adminder }">
-    <h2><span>信果考网</span>信息技术课教学云平台</h2>
+    <h2><span>果考网</span>信息技术课教学云平台-wenxig端</h2>
     <div class="user-info">
       <p class="user-name">姓名:{{ loginName }}&nbsp;&nbsp;学号:{{ stuno }}</p>
       <slot></slot>

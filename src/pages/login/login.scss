@@ -37,7 +37,45 @@ input {
 .inps {
   bottom: 120px !important;
 }
-
+.pop {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  .rightbar {
+    transition: 300ms right;
+    height: 100vh;
+    width: 300px;
+    background-color: white-rgba(0.9);
+    position: fixed;
+    right: -300px;
+    z-index: 100;
+    top: 0%;
+    overflow: auto;
+    & > * {
+      width: 100%;
+      height: 60px;
+      @include center;
+      &:not(:last-child) {
+        border-bottom: 1px solid gray-rgba(0.7);
+      }
+      &.title {
+        height: 40px;
+      }
+    }
+    & .isthis {
+      background-color: lighten($vue-green, 45%);
+    }
+    &.showMeun{
+      right: 0px;
+    }
+  }
+  &.showPop {
+    display: block;
+  }
+}
 .memu {
   $size: 30vh;
   position: fixed;
@@ -49,31 +87,14 @@ input {
   background-color: white-rgba(0.7);
   @include center;
 }
-
-.rightbar{
-  height: 100vh;
-  width: 300px;
-  background-color: white-rgba(0.9);
-  position: fixed;
-  right: 0px;
-  z-index: 100;
-  top: 0%;
-  overflow: auto;
-  &>*{
-    width: 100%;
-    height: 60px;
-    @include center;
-    &:not(:last-child){
-      border-bottom: 1px solid gray-rgba(0.7);
-    }
-    &.title{
-      height: 40px;
-    }
+.chilun{
+    transition: rotate 200ms;
+    rotate: 0deg;
+    
   }
-  & .isthis{
-    background-color: lighten($vue-green, 45%);
-  }
-}
+.r{
+      rotate: 100deg;
+    }
 
 .mimimiimi {
   position: fixed;

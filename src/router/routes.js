@@ -3,7 +3,7 @@ const routes = [
     path: "/",
     name: "login",
     component: () => import("@/pages/login/login.vue"),
-    meta: { title: "学员登陆" },
+    meta: { title: "学员登陆", name:"login" },
   },
   {
     path: "/home",
@@ -34,7 +34,7 @@ const routes = [
     component: () => import("@/pages/exem/exem.vue"),
   },
   {
-    path: "/exemAbout",
+    path: "/exem/about",
     component: () => import("@/pages/exem/about/about.vue"),
   },
 ];
