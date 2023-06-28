@@ -1,17 +1,17 @@
 <script setup>
 import alertbox from "@/components/alertbox.vue";
-import { ref, reactive, onMounted,inject,watch } from "vue";
+import { ref, reactive, onMounted, inject, watch } from "vue";
 import { useUserTemp } from "@/store/userTemp.js";
 import post from "@/service/axios.js";
 import { useRouter } from "vue-router";
 import chilunSvg from "./svgOfChilun.vue";
 import serverList from "@/assets/json/server.json"
-if (localStorage.server==undefined) {
-  localStorage.server="http://121.22.72.189:8081/hgqlx"
+if (localStorage.server == undefined) {
+  localStorage.server = "http://121.22.72.189:8081/hgqlx"
 }
 const router = useRouter();
 const userTemp = useUserTemp();
-let showPop=ref(false)
+let showPop = ref(false)
 let name = ref("");
 let password = ref("");
 let alertData = reactive({
@@ -20,43 +20,43 @@ let alertData = reactive({
   title: "",
 });
 let chilun_size = ref("20vh");
-let reload=inject('reload')
-let showMeun=ref(false)
-watch(showPop,(data)=>{
+let reload = inject('reload')
+let showMeun = ref(false)
+watch(showPop, (data) => {
   if (data) {
-    setTimeout(()=>{
-      showMeun.value=true
-    },10)
+    setTimeout(() => {
+      showMeun.value = true
+    }, 10)
   }
 })
-function closePop(){
-  showMeun.value = false
-  setTimeout(() => {
-    showPop.value = false
-  }, 300)
-}
+watch(showMeun,(data)=>{
+  if (!data) {
+    setTimeout(() => {
+      showPop.value = false
+    }, 300)
+  }
+})
 function isthis(t) {
   if (t.host == localStorage.server) {
     return "isthis"
   }
   return ""
 }
-function selServer(selObj){
-  if (selObj.type=='tiny') {
-    localStorage.server=selObj.host;
-    localStorage.serverUser=selObj.user
-    localStorage.serverPwd=selObj.pwd
+function selServer(selObj) {
+  if (selObj.type == 'tiny') {
+    localStorage.server = selObj.host;
+    localStorage.serverUser = selObj.user
+    localStorage.serverPwd = selObj.pwd
     reload()
-  }else{
-    localStorage.server=selObj.host;
-    localStorage.serverUser=""
-    localStorage.serverPwd=""
+  } else {
+    localStorage.server = selObj.host;
+    localStorage.serverUser = ""
+    localStorage.serverPwd = ""
     reload()
   }
 }
 
 function login() {
-  router.push("/exem/about")
   if (name.value != "") {
     alertData.show = true;
     alertData.text = "数据库初始化";
@@ -106,7 +106,7 @@ onMounted(() => {
     const win = nw.Window.get();
     win.width = 960;
     win.height = 540;
-  } catch (error) {}
+  } catch (error) { }
 });
 
 </script>
@@ -117,39 +117,25 @@ onMounted(() => {
         <h1>果考网实训考试云平台-wenxig端</h1>
       </li>
       <li>
-        <input
-          type="text"
-          placeholder="学号"
-          @keyup.enter="login()"
-          v-model="name"
-          class="inp inps"
-        />
+        <input type="text" placeholder="学号" @keyup.enter="login()" v-model="name" class="inp inps" />
       </li>
       <li>
-        <input
-          type="text"
-          placeholder="密码"
-          @keyup.enter="login()"
-          v-model="password"
-        />
+        <input type="text" placeholder="密码" @keyup.enter="login()" v-model="password" />
       </li>
       <li><input type="button" value="授权进入" @click="login()" /></li>
     </ul>
     <Teleport to="body">
-      <alertbox
-        :show="alertData.show"
-        :text="alertData.text"
-        :title="alertData.title"
-      />
+      <alertbox :show="alertData.show" :text="alertData.text" :title="alertData.title" />
     </Teleport>
     <a id="img" href="https://www.pixiv.net/artworks/99327195">画师: フィラ</a>
     <div class="memu" @click="showPop = true">
-      <chilunSvg class="chilun" :size="chilun_size" :class="{r: showMeun }"/>
+      <chilunSvg class="chilun" :size="chilun_size" :class="{ r: showMeun }" />
       <Teleport to="body">
-        <div class="pop" @click.self="closePop()" :class="{ showPop }">
-          <div class="rightbar" :class="{showMeun}">
+        <div class="pop" @click.self="showMeun=false" :class="{ showPop }">
+          <div class="rightbar" :class="{ showMeun }">
             <div class="title">服务器选择</div>
-            <div v-for="server in serverList" :class="isthis(server)" @click.stop="selServer(server)">{{ server.name }}</div>
+            <div v-for="server in serverList" :class="isthis(server)" @click.stop="selServer(server)">{{ server.name }}
+            </div>
           </div>
         </div>
       </Teleport>

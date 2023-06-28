@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   background-color: white-rgba(0.8);
-  overflow: auto;
+  overflow-y: auto;
   & .btn-topbar {
     height: 46px;
     transition: background 100ms ease-out, color 100ms ease-out;
@@ -25,21 +25,31 @@
     }
   }
   & > .test {
-    width: 100vw;
+    width: calc(100vw - 30px);
     margin: 0%;
     padding: 0%;
     margin-top: 70px;
     padding-left: 30px;
     & > li {
       width: calc(100% - 30px);
-      height: 80px;
-      >p{
-        font-size: 16px
+      min-height: 80px;
+      margin-bottom: 6px;
+      > p {
+        font-size: 16px;
       }
-      >.selbox{
+      > .selbox {
         display: flex;
         width: 100%;
-
+        height: 40px;
+        margin-top: 1%;
+        > * {
+          padding: 0% 20px;
+          height: 100%;
+          @include center;
+          margin-left: 1%;
+          border: 1px gray-rgba(0.6) solid;
+          border-radius: 6px;
+        }
       }
     }
   }
@@ -64,4 +74,17 @@
     left: 30px;
     top: 10px;
   }
+}
+
+.selthis {
+  background-color: rgba($color: $yanfei-red, $alpha: 0.6);
+}
+.warryPa {
+  background-color: rgba($color: $yanfei-red, $alpha: 0.3) !important;
+}
+.truethis {
+  background-color: rgba($color: $vue-green, $alpha: 0.6) !important;
+}
+.truePa {
+  background-color: rgba($color: $vue-green, $alpha: 0.3);
 }
