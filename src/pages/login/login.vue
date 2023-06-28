@@ -12,8 +12,8 @@ if (localStorage.server == undefined) {
 const router = useRouter();
 const userTemp = useUserTemp();
 let showPop = ref(false)
-let name = ref("");
-let password = ref("");
+let name = ref("030204180338");
+let password = ref("12866646");
 let alertData = reactive({
   show: false,
   text: "",

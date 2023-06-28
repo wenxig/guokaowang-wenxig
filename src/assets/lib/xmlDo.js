@@ -105,23 +105,32 @@ function OBJtoXML(obj) {
 function luaToChoose(data) {
   let datas = data.root.RPscoreInfo;
   let dataObj = [];
+  // console.log(datas);
   _.times(10, (i) => {
     i = i + 1;
-    if (datas.indexOf(`DX${i == 10 ? 10 : `0${i}`}`) != -1) {
+    if (datas.indexOf(`DX${i == 10 ? "10" : `0${i}`}`) != -1) {
       let statr = datas.indexOf(`DX${i == 10 ? 10 : `0${i}`}`);
       let end = datas.indexOf(`^`, statr);
-      if (i != 9)
+      if (i < 10) {
+        console.log("index<10:      ",datas.substring(statr, end == -1 ? undefined : end));
         dataObj[i - 1] = datas.substring(statr, end == -1 ? undefined : end);
+      }
       //每一题的lua字符串 030204180338
-      else dataObj[9] = datas.substring(datas.indexOf(`DX10`));
+      else {
+        console.log("index!<10:      ",datas.substring(datas.indexOf(`DX10`)));
+        dataObj[9] = datas.substring(datas.indexOf(`DX10`));
+      }
     } else {
       dataObj[i - 1] = "";
     }
   });
-  _.each(dataObj, (d, i) => { // DX01|4|55.000000|110.00|2.00|2023/6/24 9:03:36|2
+  console.log(dataObj);
+
+  _.each(dataObj, (d, i) => {
+    // DX01|4|55.000000|110.00|2.00|2023/6/24 9:03:36|2
     if (d != "") {
       let indexVal = d.indexOf("|");
-      let dataTemp=[]
+      let dataTemp = [];
       let tempObj = {};
       for (let i = 0; i < d.length; i++) {
         let charAt = d.charAt(i);
@@ -131,35 +140,30 @@ function luaToChoose(data) {
           tempObj[charAt] = 1;
         }
       }
-      _.times(tempObj['|'],(j)=>{
-        let newIndex=d.indexOf("|",indexVal+1)
-        newIndex=newIndex==-1?undefined:newIndex;
-        let data = d.substring(indexVal+1,newIndex)
-        indexVal=newIndex
-        data=_.toNumber(data)
-        dataTemp[j]=data;
-      })
-      dataObj[i]={
+      _.times(tempObj["|"], (j) => {
+        let newIndex = d.indexOf("|", indexVal + 1);
+        newIndex = newIndex == -1 ? undefined : newIndex;
+        let data = d.substring(indexVal + 1, newIndex);
+        indexVal = newIndex;
+        data = _.toNumber(data);
+        dataTemp[j] = data;
+      });
+      dataObj[i] = {
         all: [dataTemp[1]],
         name: allChooses[i].name,
         times: dataTemp[0],
-        height:dataTemp[2]
-      }
+        height: dataTemp[2],
+      };
     } else {
       dataObj[i] = {
         all: [],
         name: allChooses[i].name,
         times: 0,
-        type:'no_data'
+        type: "no_data",
       };
     }
   });
   return dataObj;
 }
 
-export {
-  toXmlDom,
-  OBJtoXML,
-  convertToJSON,
-  luaToChoose
-}
+export { toXmlDom, OBJtoXML, convertToJSON, luaToChoose };
