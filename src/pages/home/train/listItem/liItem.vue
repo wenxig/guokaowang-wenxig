@@ -17,7 +17,7 @@ export default {
       sessionStorage.setItem("sel",JSON.stringify({sel:[]}))
       store.exem.name=this.$props.name
       store.exem.doTime=this.$props.times
-      this.$router.push(`/exem/${this.$props.exemid}`)
+      this.$router.push(`/home/exem/${this.$props.exemid}`)
     }
   }
 };
@@ -30,8 +30,8 @@ export default {
       <p>{{ times }}</p>
       <p>{{ nom }}</p>
       <p>{{ highest }}</p>
-      <p v-if="highest==max" class="ok">合格</p>
-      <p v-if="highest!=max" class="nook">未合格</p>
+      <p v-if="highest>=max" class="ok">合格</p>
+      <p v-else class="nook">未合格</p>
       <p @click="go">开始练习</p>
     </li>
 </template>

@@ -165,7 +165,7 @@ watch(leixing, () => {
         </div>
       </div>
       <div class="lastRead" v-if="lastdo">
-        上次练习：<router-link :to="`/exem/${lastdo.id}`">
+        上次练习：<router-link :to="`/home/exem/${lastdo.id}`">
           {{ lastdo.name }}
         </router-link>
       </div>

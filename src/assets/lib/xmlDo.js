@@ -105,26 +105,22 @@ function OBJtoXML(obj) {
 function luaToChoose(data) {
   let datas = data.root.RPscoreInfo;
   let dataObj = [];
-  // console.log(datas);
   _.times(10, (i) => {
     i = i + 1;
     if (datas.indexOf(`DX${i == 10 ? "10" : `0${i}`}`) != -1) {
       let statr = datas.indexOf(`DX${i == 10 ? 10 : `0${i}`}`);
       let end = datas.indexOf(`^`, statr);
       if (i < 10) {
-        console.log("index<10:      ",datas.substring(statr, end == -1 ? undefined : end));
         dataObj[i - 1] = datas.substring(statr, end == -1 ? undefined : end);
       }
       //每一题的lua字符串 030204180338
       else {
-        console.log("index!<10:      ",datas.substring(datas.indexOf(`DX10`)));
         dataObj[9] = datas.substring(datas.indexOf(`DX10`));
       }
     } else {
       dataObj[i - 1] = "";
     }
   });
-  console.log(dataObj);
 
   _.each(dataObj, (d, i) => {
     // DX01|4|55.000000|110.00|2.00|2023/6/24 9:03:36|2

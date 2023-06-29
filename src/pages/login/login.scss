@@ -68,7 +68,7 @@ input {
     & .isthis {
       background-color: lighten($vue-green, 45%);
     }
-    &.showMeun{
+    &.showMeun {
       right: 0px;
     }
   }
@@ -87,17 +87,44 @@ input {
   background-color: white-rgba(0.7);
   @include center;
 }
-.chilun{
-    transition: rotate 200ms;
-    rotate: 0deg;
-    
-  }
-.r{
-      rotate: 100deg;
-    }
+.chilun {
+  transition: rotate 200ms;
+  rotate: 0deg;
+}
+.r {
+  rotate: 100deg;
+}
 
 .mimimiimi {
   position: fixed;
   top: 0%;
   left: 0%;
+}
+
+.btn {
+  border: {
+    width: 0px;
+    radius: 10px;
+  }
+
+  background-color: rgba(240, 248, 255, 0.7);
+  transition: 300ms background;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background-color: rgb(220, 220, 220, 1);
+  }
+}
+
+.inp {
+  border: 0px;
+  border-radius: 10px;
+  background-color: rgba(240, 248, 255, 0.7);
+  transition: 300ms background;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: rgba(240, 248, 255, 1);
+  }
 }

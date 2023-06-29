@@ -3,7 +3,7 @@ const routes = [
     path: "/",
     name: "login",
     component: () => import("@/pages/login/login.vue"),
-    meta: { title: "学员登陆", name:"login" },
+    meta: { title: "学员登陆", name: "login" },
   },
   {
     path: "/home",
@@ -25,13 +25,20 @@ const routes = [
       {
         path: "exem",
         component: () => import("@/pages/home/exem/exem.vue"),
+      }, {
+        path: "exem/:id",
+        name: "exem",
+        component: () => import("@/pages/exem/exem.vue"),
       },
     ],
   },
   {
-    path: "/exem/:id",
-    name: "exem",
-    component: () => import("@/pages/exem/exem.vue"),
+    path: "/exem/choose/:id",
+    component: () => import("@/pages/exem/choose/choose.vue"),
+  },
+  {
+    path: "/exem/operate/:id",
+    component: () => import("@/pages/exem/operate/operate.vue"),
   },
   {
     path: "/exem/about",
