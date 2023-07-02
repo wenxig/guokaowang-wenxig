@@ -1,0 +1,96 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  .statrExem {
+    padding-bottom: 30px;
+    z-index: 1;
+    min-height: 100vh;
+    background-color: white-rgba(0.9);
+    width: 100vw;
+    padding-top: 70px;
+    & p {
+      color: black;
+    }
+  }
+  & .btn-topbar {
+    height: 46px;
+    transition: background 100ms ease-out, color 100ms ease-out;
+    width: 61px;
+    padding: 0px 5px;
+    font-size: 20px;
+    margin-left: 10px;
+    border-radius: 6px;
+    background: transparent;
+    @include center;
+    right: 20px;
+    border: {
+      style: solid;
+      width: 2px;
+      color: $yanfei-pink;
+    }
+    &:active {
+      color: white-rgba(0.8);
+      background-color: $yanfei-pink;
+    }
+  }
+  .leftbar{
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+  }
+  .over {
+    margin-top: 70px;
+    margin-left: 15vw;
+    width: 85vw;
+    height: calc(100vh - 70px);
+    @include widthCenter;
+    flex-shrink: 0;
+    background-color: white-rgba(0.9);
+    .head{
+      position: absolute;
+      top: 12%;
+      @include center;
+      width: 80%;
+      height: 60px;
+      background-color: mix(gray-rgba(0.6), white-rgba(0.8));
+    }
+    & table{
+      margin-top: 10%;
+      height: 60px;
+      width: 80%;
+      & tr:first-child{
+        background-color: mix(gray-rgba(0.6), white-rgba(0.7));
+      }
+      & th{
+        width: 7vw;
+        height: 30px;
+      }
+    }
+    div{
+      position: absolute;
+      top: calc(30% + 60px );
+      @include center;
+      width: 30vw;
+      &>*{
+        transition: background 300ms;
+        display: block;
+        background-color: $yanfei-pink;
+        width: 15vw;
+        height: 30px;
+        border-radius: 4px;
+        @include center;
+        &:hover{
+          background-color: mix($yanfei-pink, white-rgba(0.7));
+        }
+        &:last-child{
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+.center {
+  @include center;
+}
