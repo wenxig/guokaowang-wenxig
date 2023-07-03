@@ -1,3 +1,3 @@
 # a guokaowang copy project
 
-other please see README.cn.md
+more please see README.cn.md
