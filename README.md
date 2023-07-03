@@ -1,3 +1,3 @@
-# ?
+# a guokaowang copy project
 
-typescript+vite+vue+pinia+jquery+lodash
+other please see README.cn.md
