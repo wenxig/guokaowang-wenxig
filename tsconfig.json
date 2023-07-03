@@ -28,6 +28,7 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": false,
     "allowJs": true,
+    "noImplicitAny": false,
     "alwaysStrict": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
