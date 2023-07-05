@@ -21,3 +21,9 @@ type chooseType=  {
   }[]
   type: string
 }
+type fileTreeType = {
+sel?: boolean,
+  name: string,
+  type: string,
+  children: fileTreeType[] | any[]
+}
