@@ -15,7 +15,7 @@ export interface userData {
 export const useUserTemp = defineStore("userTemp", {
   state: () => {
     return {
-      data: [],
+      data: new Array<any>(),
     };
   },
   getters: {
@@ -26,11 +26,33 @@ export const useUserTemp = defineStore("userTemp", {
   actions: {
     asyncGet(key: number | string, callback: Function): void {
       let _this: Data = this;
-      key = key.toString();
-      localforage.getItem(key).then((val) => {
-        _this.data[key as number] = val as userData;
-        callback(val);
-      });
+      let postData = {
+        root: {
+          UserNo: sessionStorage.getItem("login_stuno"),
+          unitno: sessionStorage.getItem("login_unitno"),
+          proid: "hgqxxjs",
+        },
+      };
+      post(
+        "/api/InteractData/XmlGetpracticeScore.aspx", //KG0901|1|15.000000|15.00|15.00|2023/3/20 10:38:50|1^^KG0902|1|15.000000|15.00|15.00|2023/3/20 10:42:09|1^^K..
+        postData,
+        (d: any) => {
+          d = luaToChoose(d);
+          _.each(d, (da, i: number) => {
+            localforage.setItem(_.toString(i), da);
+            _this.data[i] = da;
+          });
+          if (key=='all') {
+            callback(
+              _this.data
+            );
+          }else{
+            callback(
+              _this.data[key]
+            );
+          }
+        }
+      );
     },
     get(key: number | string): userData {
       let _this = this;

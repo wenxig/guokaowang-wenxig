@@ -73,31 +73,37 @@ function OBJtoXML(obj:any):string {
   return xml;
 }
 
-function luaToChoose(data: { root: { RPscoreInfo: string; }; }):any[]|boolean {
+function luaToChoose(data: { root: { RPscoreInfo: string; }; }):any[]|boolean {  
   let datas:string = data.root.RPscoreInfo;
+  console.log(datas);
   if (!datas) {
     return false;
   }
   let dataObj:any[] = [];
-  _.times(10, (i:number) => {
+  _.times(20, (i:number) => {
     i = i + 1;
-    if (datas.indexOf(`DX${i == 10 ? "10" : `0${i}`}`) != -1) {
-      let statr = datas.indexOf(`DX${i == 10 ? 10 : `0${i}`}`);
-      let end = datas.indexOf(`^`, statr);
-      if (i < 10) {
+    if (i<=10) {
+      if (datas.indexOf(`DX${fix(i,2)}`) != -1) {
+        let statr = datas.indexOf(`DX${fix(i,2)}`);
+        let end = datas.indexOf(`^`, statr);
         dataObj[i - 1] = datas.substring(statr, end == -1 ? undefined : end);
+      } else {
+        dataObj[i - 1] = "";
       }
-      //每一题的lua字符串 030204180338
-      else {
-        dataObj[9] = datas.substring(datas.indexOf(`DX10`));
+    }else{
+      if (datas.indexOf(`KG04${fix(i,2)}`) != -1) {
+        let statr = datas.indexOf(`KG04${fix(i,2)}`);
+        let end = datas.indexOf(`^`, statr);
+        dataObj[i - 1] = datas.substring(statr, end == -1 ? undefined : end);
+      } else {
+        dataObj[i - 1] = "";
       }
-    } else {
-      dataObj[i - 1] = "";
     }
   });
 
   _.each(dataObj, (d:string, i:number) => {
     // DX01|4|55.000000|110.00|2.00|2023/6/24 9:03:36|2
+    
     if (d != "") {
       let indexVal:number = d.indexOf("|");
       let dataTemp:string[]|number[] = [];
@@ -118,6 +124,8 @@ function luaToChoose(data: { root: { RPscoreInfo: string; }; }):any[]|boolean {
         data = _.toNumber(data);
         dataTemp[j] = data;
       });
+      console.log(allChooses);
+      
       dataObj[i] = {
         all: [dataTemp[1]],
         name: allChooses[i].name,
@@ -133,7 +141,12 @@ function luaToChoose(data: { root: { RPscoreInfo: string; }; }):any[]|boolean {
       };
     }
   });
+  console.log(dataObj);
+  
   return dataObj as any[];
+}
+function fix(num: string | number, length: number) {
+  return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num
 }
 
 export { toXmlDom, OBJtoXML, convertToJSON, luaToChoose };

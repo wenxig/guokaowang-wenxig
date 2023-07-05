@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-interface chooseType  {
+type chooseType=  {
   fullcount: number
   id: number
   level: string

@@ -838,7 +838,7 @@
         "title": "世界上第一台电子计算机诞生于哪个国家？（   ）",
         "choose": {
           "a": "德国",
-       "b":"美国",
+          "b": "美国",
           "c": "中国",
           "d": "苏联"
         },
@@ -848,7 +848,7 @@
         "title": "世界上第一台电子计算机诞生于哪个国家？（   ）",
         "choose": {
           "a": "美国",
-       "b":"日本",
+          "b": "日本",
           "c": "中国",
           "d": "苏联"
         },
@@ -2092,7 +2092,7 @@
     "level": "\"我都不会\""
   },
   {
-    "id": 52,
+    "id": 9,
     "name": "单选练习十-凑数",
     "fullcount": 32,
     "topic": [
@@ -2111,8 +2111,80 @@
     "level": "\"我都不会\""
   },
   {
-    "id": 11,
+    "id": 10,
     "name": "windows1",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 11,
+    "name": "windows2",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 12,
+    "name": "windows3",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 13,
+    "name": "windows4",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 14,
+    "name": "windows5",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 15,
+    "name": "windows6",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 16,
+    "name": "windows7",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 17,
+    "name": "windows8",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 18,
+    "name": "windows9",
+    "fullcount": 10,
+    "topic": { "c0": "" },
+    "type": "上机操作题",
+    "level": "普通"
+  },
+  {
+    "id": 19,
+    "name": "windows10",
     "fullcount": 10,
     "topic": { "c0": "" },
     "type": "上机操作题",
