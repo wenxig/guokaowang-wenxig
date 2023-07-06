@@ -27,5 +27,3 @@ sel?: boolean,
   type: string,
   children: fileTreeType[] | any[]
 }
-
-declare module "@tauri-apps/api/*";
