@@ -15,7 +15,12 @@ async fn close_splashscreen(window: tauri::Window) {
 fn main() {
   tauri::Builder::default()
     // Add this line
-    .invoke_handler(tauri::generate_handler![close_splashscreen])
+    .invoke_handler(tauri::generate_handler![close_splashscreen,set_window_top])
     .run(tauri::generate_context!())
     .expect("failed to run app");
+}
+fn set_window_top(val:Boolean) {
+  let app = tauri::generate_context!().app_handle;
+  let window = app.get_window("main").unwrap(); // 以窗口的名称获取窗口句柄
+  window.set_always_on_top(val); // 将窗口置顶
 }
