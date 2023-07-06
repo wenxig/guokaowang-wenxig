@@ -75,7 +75,6 @@ function OBJtoXML(obj:any):string {
 
 function luaToChoose(data: { root: { RPscoreInfo: string; }; }):any[]|boolean {  
   let datas:string = data.root.RPscoreInfo;
-  console.log(datas);
   if (!datas) {
     return false;
   }
@@ -124,7 +123,6 @@ function luaToChoose(data: { root: { RPscoreInfo: string; }; }):any[]|boolean {
         data = _.toNumber(data);
         dataTemp[j] = data;
       });
-      console.log(allChooses);
       
       dataObj[i] = {
         all: [dataTemp[1]],
@@ -141,7 +139,6 @@ function luaToChoose(data: { root: { RPscoreInfo: string; }; }):any[]|boolean {
       };
     }
   });
-  console.log(dataObj);
   
   return dataObj as any[];
 }
