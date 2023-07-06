@@ -6,6 +6,8 @@ import post, { callback } from "@/service/axios.ts";
 import { Router, useRouter } from "vue-router";
 import chilunSvg from "./svgOfChilun.vue";
 import serverList from "@/assets/json/server.json";
+import { appWindow } from '@tauri-apps/api/window';
+import { invoke } from '@tauri-apps/api/tauri'
 if (localStorage.server == undefined) {
   localStorage.server = "http://121.22.72.189:8081/hgqlx";
 }
@@ -66,7 +68,6 @@ function selServer(selObj: serverType): void {
     reload();
   }
 }
-
 function login(): void {
   if (name.value != "") {
     alertData.show = true;
@@ -116,13 +117,9 @@ function login(): void {
   }
 }
 onMounted(() => {
+  invoke('close_splashscreen')
+  appWindow.maximize()
   sessionStorage.setItem("login_ip", `192.168.50.${_.random(0, 255)}`);
-  try {
-    //@ts-ignore
-    const win = nw.Window.get();
-    win.width = 960;
-    win.height = 540;
-  } catch {}
 });
 </script>
 <template>

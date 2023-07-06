@@ -135,7 +135,7 @@ function clearSelfiles() {
   ])
 }
 
-class selBoxMet {]
+class selBoxMet {
   public selFlag = ref(false)
   public selBoxSize = reactive({
     w: 0,
