@@ -22,3 +22,14 @@ a {
   color: black;
   text-decoration: none;
 }
+
+html{
+  height: 100vh;
+  background: {
+    repeat: no-repeat;
+    color: $yanfei-pink;
+    position: center;
+    size: 100%;
+    image: url(/login.jpeg);
+  }
+}

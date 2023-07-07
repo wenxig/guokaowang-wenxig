@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
-
-type chooseType=  {
+type paperType={
   fullcount: number
   id: number
   level: string
@@ -9,6 +8,10 @@ type chooseType=  {
   name: string
   ok?: boolean
   times?: number
+  type: string
+}
+type chooseType = paperType&{
+  
   topic: {
     choose: {
       a: string
@@ -19,11 +22,17 @@ type chooseType=  {
     title: string
     true: string
   }[]
-  type: string
+
 }
 type fileTreeType = {
-sel?: boolean,
+  sel?: boolean,
   name: string,
   type: string,
   children: fileTreeType[] | any[]
+}
+type operateType = paperType&{
+  topic: {
+    text:string[]
+    true: fileTreeType[]
+  }
 }

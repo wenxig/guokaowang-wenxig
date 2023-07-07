@@ -2114,7 +2114,15 @@
     "id": 10,
     "name": "windows1",
     "fullcount": 10,
-    "topic": { "c0": "" },
+    "topic": {
+      "text":[
+        "1.你需要在computer3中建立如下的目录结构",
+        "______语文",
+        "学科--数学--几何",
+        "2.删除computer2"
+      ],
+      "true":""
+    },
     "type": "上机操作题",
     "level": "普通"
   },

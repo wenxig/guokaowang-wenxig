@@ -16,7 +16,7 @@ function go(to: RouteLocationRaw) {
     <div class="card">
       <p>单元练习</p>
       <p>
-        参考教材分章节命题，考生根据报考类别、报考级别选择。上机操作题输出详细评分步骤。
+        参考教材分章节命题，考生根据报考类别、报考级别选择。上机操作题不输出详细评分步骤。
       </p>
       <a @click="go('/home/train')" class="gosee">前往查看</a>
     </div>

@@ -28,3 +28,8 @@ document.addEventListener('keydown', function (event) {
     event.preventDefault();
   }
 }, false);
+document.addEventListener("click",function(event:MouseEvent){
+  if (event.button == 2) {
+    return false
+  }
+})

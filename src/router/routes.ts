@@ -42,6 +42,10 @@ const routes = [
     meta:{ad:false}
   },
   {
+    path: "/exem/operate/:id/paper",
+    component: () => import("@/pages/exem/operate/fsp/paper.vue"),
+  },
+  {
     path: "/exem/about",
     component: () => import("@/pages/exem/about/about.vue"),
   },

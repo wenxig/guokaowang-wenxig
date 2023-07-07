@@ -7,10 +7,12 @@ import { Router, useRouter } from "vue-router";
 import chilunSvg from "./svgOfChilun.vue";
 import serverList from "@/assets/json/server.json";
 import { appWindow } from '@tauri-apps/api/window';
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api'
 if (localStorage.server == undefined) {
   localStorage.server = "http://121.22.72.189:8081/hgqlx";
 }
+console.log(location);
+
 const router: Router = useRouter();
 const userTemp = useUserTemp();
 let showPop = ref<boolean>(false);
@@ -129,30 +131,15 @@ onMounted(() => {
         <h1>果考网实训考试云平台-wenxig端</h1>
       </li>
       <li>
-        <input
-          type="text"
-          placeholder="学号"
-          @keyup.enter="login()"
-          v-model="name"
-          class="inp inps"
-        />
+        <input type="text" placeholder="学号" @keyup.enter="login()" v-model="name" class="inp inps" />
       </li>
       <li>
-        <input
-          type="text"
-          placeholder="密码"
-          @keyup.enter="login()"
-          v-model="password"
-        />
+        <input type="text" placeholder="密码" @keyup.enter="login()" v-model="password" />
       </li>
       <li><input type="button" value="授权进入" @click="login()" /></li>
     </ul>
     <Teleport to="body">
-      <alertbox
-        :show="alertData.show"
-        :text="alertData.text"
-        :title="alertData.title"
-      />
+      <alertbox :show="alertData.show" :text="alertData.text" :title="alertData.title" />
     </Teleport>
     <a id="img" href="https://www.pixiv.net/artworks/99327195">画师: フィラ</a>
     <div class="memu" @click="showPop = true">
@@ -161,11 +148,7 @@ onMounted(() => {
         <div class="pop" @click.self="showMeun = false" :class="{ showPop }">
           <div class="rightbar" :class="{ showMeun }">
             <div class="title">服务器选择</div>
-            <div
-              v-for="server in serverList"
-              :class="isthis(server)"
-              @click.stop="selServer(server)"
-            >
+            <div v-for="server in serverList" :class="isthis(server)" @click.stop="selServer(server)">
               {{ server.name }}
             </div>
           </div>

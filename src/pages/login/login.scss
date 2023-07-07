@@ -16,16 +16,7 @@ input {
     bottom: 20px;
   }
 }
-:global(html) {
-  height: 100vh;
-  background: {
-    repeat: no-repeat;
-    color: $yanfei-pink;
-    position: center;
-    size: 100%;
-    image: url(/login.jpeg);
-  }
-}
+
 #img {
   position: fixed;
   right: 10px;
