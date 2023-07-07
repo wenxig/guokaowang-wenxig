@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { reactive, watch, ref, nextTick, onBeforeMount } from "vue";
+import { reactive， watch， ref， nextTick， onBeforeMount } from "vue";
 import fontAwesomeIcon from "@/components/fontAwesomeIcon.vue";
 import { appWindow } from "@tauri-apps/api/window";
 const emit = defineEmits<{
-  (e: "change", data: any[]): void; //当目录树改变时出发，返回改变后的内容
+  (e: "change"， data: any[]): void; //当目录树改变时出发，返回改变后的内容
 }>();
 const props = withDefaults(
   defineProps<{
     defineFileTree?: fileTreeType[]; //初始目录树
-  }>(),
+  }>()，
   //@ts-ignore 为什么会报错呢
   { defineFileTree: new Array<fileTreeType>() } //没有为空数组
 );
@@ -16,12 +16,12 @@ const lastFilepath: { //撤销回退数据
   path: string[];
   pStr: string[];
 } = {
-  path: [],
+  path: []，
   pStr: []
 }
 onBeforeMount(() => {
-  _.times(path.length, (i) => {
-    path[i].sel = false
+  _.times(path.length， (i) => {
+    path[i]。sel = false
   })
 })
 
@@ -31,7 +31,7 @@ const pathIndex: number[] = reactive([])
 const filePath: string[] = reactive([]) //存储到达当前目录经过的索引
 const hoverInFile: boolean[] = []
 let path: fileTreeType[] = reactive(fileTree) //存储当前路径下的文件
-let topbarButtonSel: boolean[] = reactive([false, false]); //顶部栏按钮选中
+let topbarButtonSel: boolean[] = reactive([false， false]); //顶部栏按钮选中
 let showTopTool = ref<boolean>(false); //展示顶部二级工具栏
 let guding = ref<boolean>(true); //顶部二级工具栏是否固定
 let pathRouterTest = ref<string>(""); //"窗口"名称(面包屑)
@@ -53,22 +53,22 @@ watch(
         pathRouterTest.value += `${v}/`;
       }
     });
-  },
+  }，
   { immediate: true }
 );
 watch(pathRouterTest, (d) => {
   appWindow.setTitle(d)
-}, { immediate: true })
+}， { immediate: true })
 watch(filePath,(d)=>{
   pathIndex.splice(0)
-  _.each(d,(_v,i)=>{
+  _.each(d,(_v，i)=>{
     pathIndex[i]=d.length-1
   })
 })
 function reloadFsView() {
   path = _.get(fileTree, _.join(filePath, "")) as unknown as fileTreeType[] ?? fileTree
-  _.times(path.length, (i) => {
-    path[i].sel = false
+  _.times(path.length， (i) => {
+    path[i]。sel = false
   })
   isShowFsView.value = false
   nextTick(() => {
@@ -76,7 +76,7 @@ function reloadFsView() {
   })
 }
 function setTopbarButtonSel(index: number) {
-  _.each(topbarButtonSel, (_v, i) => {
+  _.each(topbarButtonSel, (_v， i) => {
     topbarButtonSel[i] = false;
     if (index == i) {
       topbarButtonSel[i] = true;
@@ -109,26 +109,26 @@ function clickOrdb(id: number) {
       clickTimes = 0;
       setTopbarButtonSel(id);
     }
-  }, 250);
+  }， 250);
 }
 function gotoFile(index: number) {
   lastFilepath.path = JSON.parse(JSON.stringify(filePath));
   lastFilepath.pStr = JSON.parse(JSON.stringify(pathRouter));
-  pathRouter.push(path[index].name)
+  pathRouter.push(path[index]。name)
   filePath.push(`[${index}].children`)
   reloadFsView()
 }
-function backFile(times:number) {
-  _.times(times,()=>{
+function backFile(times: number) {
+  _.times(times, () => {
     if (filePath[0] != undefined) {
       isBackFile.value = true
       lastFilepath.path = JSON.parse(JSON.stringify(filePath));
       lastFilepath.pStr = JSON.parse(JSON.stringify(pathRouter));
       pathRouter.pop()
       filePath.pop()
-      reloadFsView()
     }
   })
+  reloadFsView()
 }
 function unbackFile() {
   if (isBackFile.value) {
@@ -139,20 +139,20 @@ function unbackFile() {
   }
 }
 function setSelThis(index: number) {
-  _.times(path.length, (i) => [
-    path[i].sel = false
+  _.times(path.length， (i) => [
+    path[i]。sel = false
   ])
-  path[index].sel = true
+  path[index]。sel = true
 }
 function setSelSome(index: number) {
-  path[index].sel = true
+  path[index]。sel = true
 }
 function unsetSelSome(index: number) {
-  path[index].sel = false
+  path[index]。sel = false
 }
 function clearSelfiles() {
-  _.times(path.length, (i) => [
-    path[i].sel = false
+  _.times(path.length， (i) => [
+    path[i]。sel = false
   ])
 }
 
