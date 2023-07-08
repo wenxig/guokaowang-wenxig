@@ -11,8 +11,6 @@ import { invoke } from '@tauri-apps/api'
 if (localStorage.server == undefined) {
   localStorage.server = "http://121.22.72.189:8081/hgqlx";
 }
-console.log(location);
-
 const router: Router = useRouter();
 const userTemp = useUserTemp();
 let showPop = ref<boolean>(false);
@@ -27,6 +25,7 @@ let alertData = reactive<{
   text: "",
   title: "",
 });
+let text=ref('')
 let chilun_size = ref<string>("20vh");
 let reload = inject("reload") as Function;
 let showMeun = ref<boolean>(false);
@@ -85,10 +84,13 @@ function login(): void {
         unitno: "030204",
       },
     };
+    alertData.title = "设置请求数据";
     post(
       "/api/InteractData/XmlCheckStuLogin.aspx",
       postdata,
       function (data: callback) {
+        alertData.title = "收到请求回调";
+
         if (data.root.cardcheckRes == 1) {
           sessionStorage.setItem("login_stuno", name.value);
           sessionStorage.setItem("login_name", data.root.stuname);
@@ -128,7 +130,7 @@ onMounted(() => {
   <div class="mimimiimi">
     <ul class="page">
       <li>
-        <h1>果考网实训考试云平台-wenxig端</h1>
+        <h1>果考网实训考试云平台-wenxig端{{ text }}</h1>
       </li>
       <li>
         <input type="text" placeholder="学号" @keyup.enter="login()" v-model="name" class="inp inps" />

@@ -16,7 +16,7 @@ function imgLoad(event: Event): void {
 <template>
   <div class="main">
     <div class="backgrund">
-      <img src="/opImg.jpg" @load="imgLoad($event)">
+      <img src="/opImg.avif" @load="imgLoad($event)">
       <div class="filter"></div>
     </div>
     <div class="title">

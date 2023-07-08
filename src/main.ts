@@ -17,7 +17,7 @@ app.mount("#app");
 
 document.addEventListener('mousewheel', function (event:any) {//禁用页面缩放
   if (event.wheelDelta || event.detail) {
-    event.preventDefault();
+    // event.preventDefault();
   }
 }, { capture: false, passive: false });
 document.addEventListener('keydown', function (event) {
@@ -28,8 +28,6 @@ document.addEventListener('keydown', function (event) {
     event.preventDefault();
   }
 }, false);
-document.addEventListener("click",function(event:MouseEvent){
-  if (event.button == 2) {
-    return false
-  }
-})
+document.oncontextmenu = (e) => {
+  // e.preventDefault()
+}

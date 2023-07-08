@@ -62,7 +62,7 @@ export const useUserTemp = defineStore("userTemp", {
       });
       return this.data[_.toNumber(key)] as userData;
     },
-    delete(key: number | string, succeed: Function): void {
+    delete(key: number | string, succeed: ()=>void): void {
       key = key.toString();
       this.data.splice(_.toNumber(key), 1);
       localforage.removeItem(key).then(() => {
@@ -71,7 +71,7 @@ export const useUserTemp = defineStore("userTemp", {
         }
       });
     },
-    set(data: any, key: number | string, succeed: Function): void {
+    set(data: any, key: number | string, succeed: ()=>void): void {
       key = key.toString();
       this.data[_.toNumber(key)] = data;
       localforage.setItem(key, data).then(() => {
@@ -80,29 +80,33 @@ export const useUserTemp = defineStore("userTemp", {
         }
       });
     },
-    init(callback: Function): void {
-      let _this: Data = this;
-      let postData = {
-        root: {
-          UserNo: sessionStorage.getItem("login_stuno"),
-          unitno: sessionStorage.getItem("login_unitno"),
-          proid: "hgqxxjs",
-        },
-      };
-      post(
-        "/api/InteractData/XmlGetpracticeScore.aspx", //KG0901|1|15.000000|15.00|15.00|2023/3/20 10:38:50|1^^KG0902|1|15.000000|15.00|15.00|2023/3/20 10:42:09|1^^K..
-        postData,
-        (d: any) => {
-          d = luaToChoose(d);
-          _.each(d, (da, i: number) => {
-            localforage.setItem(_.toString(i), da);
-            _this.data[i] = da;
-          });
-          callback(1);
-        }
-      );
+    init(callback: ()=>void): void {
+      try{
+        let _this: Data = this;
+        let postData = {
+          root: {
+            UserNo: sessionStorage.getItem("login_stuno"),
+            unitno: sessionStorage.getItem("login_unitno"),
+            proid: "hgqxxjs",
+          },
+        };
+        post(
+          "/api/InteractData/XmlGetpracticeScore.aspx", //KG0901|1|15.000000|15.00|15.00|2023/3/20 10:38:50|1^^KG0902|1|15.000000|15.00|15.00|2023/3/20 10:42:09|1^^K..
+          postData,
+          (d: any) => {
+            d = luaToChoose(d);
+            _.each(d, (da, i: number) => {
+              localforage.setItem(_.toString(i), da);
+              _this.data[i] = da;
+            });
+            callback();
+          }
+        );
+      }catch(err){
+        alert(err)
+      }
     },
-    alldata(succeed: Function):void {
+    alldata(succeed: (data: any)=>void):void {
       let d: any[] = [];
       localforage.length().then((l) => {
         if (l == 0) {

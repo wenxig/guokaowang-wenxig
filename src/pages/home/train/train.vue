@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { inject } from "vue";
 import listBox from "./listItem/listbox.vue";
 import listItem from "./listItem/liItem.vue";
 import alertBox from "@/components/alertbox.vue";
@@ -15,6 +16,7 @@ let allPage = ref<number>(0);
 const choosePapers: any[] = reactive(choosePaper);
 let showList = ref(choosePapers);
 let onLeft = ref(false);
+let setAd= inject('routerAdminder') as Function
 let menu = {
   leixing_all: ["所有", "普通", '"我都不会"'],
   kemu_all: ["所有", "单项选择题", "上机操作题"],
@@ -24,7 +26,12 @@ let m_show = ref(false);
 
 let kemu = ref("所有");
 let leixing = ref("所有");
-onBeforeRouteLeave(() => {
+onBeforeRouteLeave((to) => {
+  if (to.name=="exem") {
+    setAd(false)
+  }else{
+    setAd(true)
+  }
   show.value = true; // 等待中提示
 });
 onBeforeMount(() => {

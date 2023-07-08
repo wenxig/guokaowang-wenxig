@@ -1,48 +1,30 @@
 import { toXmlDom, OBJtoXML, convertToJSON } from "@/assets/lib/xmlDo.ts";
-export interface callback{
-  root:any
+import { http } from "@tauri-apps/api";
+export interface callback {
+  root: any
 }
-export default function post(url:string, data:object|string, callback:Function) {
+export default function post(url: string, data: object | string, callback: (data: callback,str?:string)=>void) {
   if (localStorage.serverType != "tiny") {
+    url = url.substring(4)
+    url = 'http://121.22.72.189:8081/hgqlx'+url
     if (typeof data != "string") {
       data = OBJtoXML(data);
     }
-    if (import.meta.env.DEV) {
-      fetch(url, {
-        method: "post",
-        body: data as string,
-      })
-        .then((d:Response) => d.text())
-        .then((d:string) => {
-          callback(JSON.parse(convertToJSON(toXmlDom(d))) as callback, d);
-        });
-    } else {
-      $.post(
-        `${localStorage.server}${url.substr(4)}`,
-        JSON.stringify(data),
-        function (backData) {
-          callback(JSON.parse(convertToJSON(backData)) as callback, backData);
-        }
-      );
-    }
+    http.fetch(url, {
+      headers:{
+        'Content-Type':'text/xml'
+      },
+      method: "POST",
+      body: http.Body.text(data.toString()),
+      responseType:2
+    }).then((d) => d.data).then(d => {
+      callback(JSON.parse(convertToJSON(toXmlDom(d as string))) as callback, d as string)
+    })
   } else {
-    if (import.meta.env.DEV) {
-      fetch(`http://tinywebdb.appinventor.space/api?user=${localStorage.serverUser}&secret=${localStorage.serverPwd}`, {
-        method: "post",
-        body: data as string,
-      })
-        .then((d:Response) => d.text())
-        .then((d:string) => {
-          callback(JSON.parse(d) as callback, d);
-        });
-    } else {
-      $.post(
-        `${localStorage.server}${url.substr(4)}`,
-        JSON.stringify(data),
-        function (backData:string) {
-          callback(JSON.parse(backData) as callback, backData);
-        }
-      );
-    }
+    let url = `http://tinywebdb.appinventor.space/api?user=${localStorage.serverUser}&secret=${localStorage.serverPwd}`
+    http.fetch(url, {
+      method: "POST",
+      body: http.Body.json(data as object)
+    }).then((d) => d.data).then(d => callback(JSON.parse(d as string)))
   }
 }

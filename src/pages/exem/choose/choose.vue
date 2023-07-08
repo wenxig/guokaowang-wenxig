@@ -91,8 +91,7 @@ function update(id:number):void {
     },
   };
   
-  post("/api/InteractData/Xmlresult2.aspx", datapost, (d) => {console.log(d);
-  });
+  post("/api/InteractData/Xmlresult2.aspx", datapost, () => {});
 }
 
 function fix(num: string | number, length: number) {
