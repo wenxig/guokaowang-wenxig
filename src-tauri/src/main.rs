@@ -19,7 +19,7 @@ async fn fs_isjaoji(
 ) -> Result<bool, ()> {
     let bottom: usize = top + height + 72;
     let s_bottom: usize = s_top + s_height + 36 + sl;
-    Ok((bottom >= s_top && bottom <= s_bottom) && width >= s_left)
+    Ok((bottom >= s_top+sl && bottom <= s_bottom) && width >= s_left)
 }
 fn main() {
     tauri::Builder::default()

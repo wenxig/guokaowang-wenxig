@@ -1,0 +1,71 @@
+[
+  {
+    "name": "computer0",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer1",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer2",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer3",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer4",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer5",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer6",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer7",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer8",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "computer9",
+    "type": "dir",
+    "children": []
+  },
+  {
+    "name": "systemKT",
+    "type": "dir",
+    "children": [
+      {
+        "name": "图片.png",
+        "type": "file"
+      }, {
+        "name": "自我介绍.word",
+        "type": "file"
+      }, {
+        "name": "notebook.exe",
+        "type": "file"
+      }, {
+        "name": "图片.png",
+        "type": "file"
+      }
+    ]
+  }
+]

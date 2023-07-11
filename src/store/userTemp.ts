@@ -24,7 +24,7 @@ export const useUserTemp = defineStore("userTemp", {
     },
   },
   actions: {
-    asyncGet(key: number | string, callback: Function): void {
+    asyncGet(key: number | string, callback: (data:userData[])=>void): void {
       let _this: Data = this;
       let postData = {
         root: {
@@ -71,7 +71,7 @@ export const useUserTemp = defineStore("userTemp", {
         }
       });
     },
-    set(data: any, key: number | string, succeed: ()=>void): void {
+    set(data: any, key: number | string, succeed?: ()=>void): void {
       key = key.toString();
       this.data[_.toNumber(key)] = data;
       localforage.setItem(key, data).then(() => {
@@ -80,7 +80,7 @@ export const useUserTemp = defineStore("userTemp", {
         }
       });
     },
-    init(callback: ()=>void): void {
+    init(callback?: ()=>void): void {
       try{
         let _this: Data = this;
         let postData = {
@@ -99,7 +99,7 @@ export const useUserTemp = defineStore("userTemp", {
               localforage.setItem(_.toString(i), da);
               _this.data[i] = da;
             });
-            callback();
+            (callback as Function)();
           }
         );
       }catch(err){

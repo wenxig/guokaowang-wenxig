@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/jpeg" href="/title.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>setup</title>
+  <style>
+    body,html{
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <p>页面初始化+渲染</p>
+  <script>
+    document.addEventListener('mousewheel', function (event) {//禁用页面缩放
+        if (event.wheelDelta || event.detail) {
+          event.preventDefault();
+        }
+      }, { capture: false, passive: false });
+      document.addEventListener('keydown', function (event) {
+        if ((event.ctrlKey === true || event.metaKey === true)
+          && (event.keyCode === 61 || event.keyCode === 107
+            || event.keyCode === 173 || event.keyCode === 109
+            || event.keyCode === 187 || event.keyCode === 189)) {
+          event.preventDefault();
+        }
+      }, false);
+  </script>
+</body>
+</html>

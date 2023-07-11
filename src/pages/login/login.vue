@@ -7,7 +7,7 @@ import { Router, useRouter } from "vue-router";
 import chilunSvg from "./svgOfChilun.vue";
 import serverList from "@/assets/json/server.json";
 import { appWindow } from '@tauri-apps/api/window';
-import { invoke } from '@tauri-apps/api'
+import { invoke } from "@tauri-apps/api";
 if (localStorage.server == undefined) {
   localStorage.server = "http://121.22.72.189:8081/hgqlx";
 }
@@ -25,7 +25,6 @@ let alertData = reactive<{
   text: "",
   title: "",
 });
-let text=ref('')
 let chilun_size = ref<string>("20vh");
 let reload = inject("reload") as Function;
 let showMeun = ref<boolean>(false);
@@ -70,55 +69,43 @@ function selServer(selObj: serverType): void {
   }
 }
 function login(): void {
-  if (name.value != "") {
-    alertData.show = true;
-    alertData.text = "数据库初始化";
-    alertData.title = "加载中";
-    let postdata: object = {
-      root: {
-        stuno: name.value,
-        stupwd: password.value,
-        lcmacinfo: "89A05A71",
-        IP: sessionStorage.getItem("login_ip"),
-        proid: "hgqxxjs",
-        unitno: "030204",
-      },
-    };
-    alertData.title = "设置请求数据";
-    post(
-      "/api/InteractData/XmlCheckStuLogin.aspx",
-      postdata,
-      function (data: callback) {
-        alertData.title = "收到请求回调";
-
-        if (data.root.cardcheckRes == 1) {
-          sessionStorage.setItem("login_stuno", name.value);
-          sessionStorage.setItem("login_name", data.root.stuname);
-          sessionStorage.setItem("login_id", password.value);
-          sessionStorage.setItem("login_unitno", data.root.stuunitno);
-          userTemp.init(function () {
-            router.push("/home/home");
-            alertData.text = "页面组件加载";
-            alertData.title = "加载中";
-          });
-        } else {
-          alertData.show = true;
-          alertData.text = "请重试";
-          alertData.title = "服务器错误";
-          setTimeout(() => {
-            alertData.show = false;
-          }, 2000);
-        }
+  alertData.show = true;
+  alertData.text = "数据库初始化";
+  alertData.title = "加载中";
+  let postdata = {
+    root: {
+      stuno: name.value,
+      stupwd: password.value,
+      lcmacinfo: "89A05A71",
+      IP: sessionStorage.getItem("login_ip"),
+      proid: "hgqxxjs",
+      unitno: "030204",
+    },
+  };
+  post(
+    "/api/InteractData/XmlCheckStuLogin.aspx",
+    postdata,
+    function (data: callback) {
+      if (data.root.cardcheckRes == 1) {
+        sessionStorage.setItem("login_stuno", name.value);
+        sessionStorage.setItem("login_name", data.root.stuname);
+        sessionStorage.setItem("login_id", password.value);
+        sessionStorage.setItem("login_unitno", data.root.stuunitno);
+        userTemp.init(function () {
+          router.push("/home/home");
+          alertData.text = "页面组件加载";
+          alertData.title = "加载中";
+        });
+      } else {
+        alertData.show = true;
+        alertData.text = "请检查填写信息";
+        alertData.title = "登陆失败";
+        setTimeout(() => {
+          alertData.show = false;
+        }, 2000);
       }
-    );
-  } else {
-    alertData.show = true;
-    alertData.text = "快点填写";
-    alertData.title = "请填写用户名";
-    setTimeout(() => {
-      alertData.show = false;
-    }, 2000);
-  }
+    }
+  );
 }
 onMounted(() => {
   invoke('close_splashscreen')
@@ -130,7 +117,7 @@ onMounted(() => {
   <div class="mimimiimi">
     <ul class="page">
       <li>
-        <h1>果考网实训考试云平台-wenxig端{{ text }}</h1>
+        <h1>果考网实训考试云平台-wenxig端</h1>
       </li>
       <li>
         <input type="text" placeholder="学号" @keyup.enter="login()" v-model="name" class="inp inps" />

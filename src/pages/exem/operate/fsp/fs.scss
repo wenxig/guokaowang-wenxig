@@ -1,0 +1,267 @@
+$fs-blue: #0066b4;
+
+.main-fs {
+  width: 100vw;
+  height: 100vh;
+  padding-bottom: 30px;
+  background-color: $yanfei-white;
+  display: block !important;
+  position: relative;
+  overflow: auto;
+
+  & * {
+    font-size: 13px;
+  }
+
+  .topestbar {
+    width: 100%;
+    min-height: 3%;
+    border-bottom: 1px gray-rgba(1) solid;
+
+    .mianbaoxie,
+    .button {
+      height: 3vh;
+    }
+
+    .button {
+      @include heightCenter;
+      width: 100%;
+
+      & button {
+        transition: border 300ms;
+        background-color: transparent;
+        height: 100%;
+        width: 5%;
+        border: 1px transparent solid;
+        border-radius: 0;
+
+        &:not(.sel):hover {
+          border: 1px gray-rgba(1) solid;
+        }
+
+        &:first-child {
+          background-color: $fs-blue;
+          color: $yanfei-white;
+        }
+
+        &.sel:not(:first-child) {
+          background-color: mix($yanfei-white, gray-rgba(0.4), 10%);
+        }
+      }
+
+      & > div {
+        position: absolute;
+        right: 1%;
+
+        &.down {
+          rotate: 180deg;
+        }
+      }
+    }
+  }
+
+  .topTool {
+    background-color: mix($yanfei-white, gray-rgba(0.4), 10%);
+    height: 90px;
+    width: 100%;
+    position: absolute;
+    z-index: 100;
+
+    &.isGuding {
+      position: relative;
+    }
+  }
+
+  .path {
+    height: 40px;
+    @include heightCenter;
+    padding-top: 3px;
+    padding-left: 3px;
+    margin-bottom: 1%;
+
+    .pathDo {
+      @include heightCenter;
+      height: 100%;
+      width: 80px;
+
+      & > * {
+        width: 40px;
+        @include center;
+        height: 100%;
+        font-size: 20px;
+
+        &:active {
+          background-color: mix($yanfei-white, gray-rgba(0.4), 10%);
+        }
+      }
+
+      margin-right: 3px;
+    }
+
+    .pathWhere {
+      width: 80%;
+      height: 90%;
+      border: 1px gray-rgba(1) solid;
+      padding-left: 10px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      @include heightCenter;
+      position: relative;
+
+      & * {
+        white-space:nowrap;
+        font-size: 20px;
+
+        span {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+
+        @include heightCenter;
+        height: 100%;
+      }
+
+      .pathBack {
+        position: absolute;
+        right: 10px;
+        font-size: 16px;
+      }
+    }
+
+    .search {
+      border: 1px gray-rgba(1) solid;
+      height: 90%;
+      width: 13%;
+      margin-left: 6px;
+      @include heightCenter;
+      position: relative;
+
+      input {
+        height: 100%;
+        width: 100%;
+        background-color: transparent;
+        border: 0px;
+      }
+
+      :not(input) {
+        position: absolute;
+        right: 3%;
+      }
+    }
+  }
+
+  .fsView {
+    height: calc(100vh - 3vh - 90px);
+    width: 100%;
+    position: relative;
+    overflow: auto;
+
+    & > div {
+      @include heightCenter;
+      width: 89%;
+      height: 32px;
+      padding-left: 1%;
+      font-size: 17px;
+      border: 2px solid transparent;
+      position: relative;
+      z-index: 100;
+
+      & > .icon {
+        font-size: 20px;
+        margin-right: 10px;
+      }
+
+      & > input {
+        background-color: transparent;
+        height: 100%;
+        width: 20%;
+        border: 0px;
+        font-size: 17px;
+      }
+
+      &.selthis {
+        background-color: rgba($color: $fs-blue, $alpha: 0.1);
+        border: 2px solid rgba($color: $fs-blue, $alpha: 0.2);
+      }
+    }
+  }
+
+  .bottomBar {
+    @include heightCenter;
+    position: fixed;
+    bottom: 0px;
+    width: 98%;
+    height: 30px;
+    border-top: 1px gray-rgba(1) solid;
+    padding-left: 2%;
+  }
+}
+
+.mouseSelBox {
+  position: fixed;
+  z-index: 100;
+  background-color: rgba($color: $fs-blue, $alpha: 0.2);
+  border: 2px solid rgba($color: $fs-blue, $alpha: 0.25);
+}
+
+.titlebar {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+
+  .titlebar-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+
+    &:active {
+      background-color: gray-rgba(0.5);
+    }
+  }
+}
+
+.menu_pop {
+  position: fixed;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.menu {
+  width: 0px;
+  height: 0px;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  z-index: 10000;
+  border-radius: 5px;
+  background-color: white;
+  transition: 300ms width, 500ms height;
+  padding: 0%;
+  overflow: hidden;
+  white-space: nowrap;
+  display: none;
+  border: 1px solid gray-rgba(0.3);
+
+  & > div {
+    width: calc(100% - 5px);
+    height: 40px;
+    @include heightCenter;
+    padding-left: 5px;
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+}
+
+*[disabled] {
+  color: black !important;
+}

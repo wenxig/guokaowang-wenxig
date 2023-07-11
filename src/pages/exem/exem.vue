@@ -7,7 +7,6 @@ const route: RouteLocationNormalizedLoaded = useRoute();
 const router: Router = useRouter();
 let isChoose = ref<boolean>(_.toNumber(route.params.id)<10)
 
-
 function back() {
   router.push("/home/train");
 }
@@ -22,7 +21,6 @@ function startE() {
     router.push("/exem/operate/" + route.params.id)
   }
 }
-
 </script>
 
 <template>

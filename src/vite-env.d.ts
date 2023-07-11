@@ -25,7 +25,7 @@ type chooseType = paperType & {
 
 }
 type fileTreeType = {
-  onInp: boolean
+  onInp?: boolean
   sel?: boolean,
   name: string,
   type: string,

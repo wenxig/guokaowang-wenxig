@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: "/exem/operate/:id/paper",
-    component: () => import("@/pages/exem/operate/fsp/paper.vue"),
+    component: () => import("@/pages/exem/operate/paper.vue"),
   },
   {
     path: "/exem/about",

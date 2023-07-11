@@ -28,6 +28,3 @@ document.addEventListener('keydown', function (event) {
     event.preventDefault();
   }
 }, false);
-document.oncontextmenu = (e) => {
-  // e.preventDefault()
-}
